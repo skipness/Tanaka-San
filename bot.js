@@ -1,4 +1,4 @@
-'use_strict'
+'use strict'
 
 var TelegramBot = require('node-telegram-bot-api');
 var Twit = require('twit');
