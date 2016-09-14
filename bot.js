@@ -16,7 +16,7 @@ var Tweety = new Twit({
 var stream = Tweety.stream('statuses/filter', { follow: ['294025417'] });
 
 stream.on('tweet', function (tweet) {
-    if (!tweet.retweeted_status && !tweet.quoted_status) {
+    if (!tweet.retweeted_status && !tweet.quoted_status !tweet.in_reply_to_user_id) {
       bot.sendMessage('...', tweet.text); 
     }
 })
