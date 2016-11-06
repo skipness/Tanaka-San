@@ -1,0 +1,15 @@
+[
+	{
+		"name": "tanaka-san",
+		"run_as_user": "deploy",
+		"cwd": "/deploy/Tanaka-San/current",
+		"script": "index.js",
+		"log_date_format": "YYYY-MM-DD HH:mm:ss:SSS Z",
+		"env": {
+			"NODE_ENV": "production"
+		},
+		"error_file": "/deploy/Tanaka-San/current/log/pm2-www-error.log",
+		"out_file": "/deploy/Tanaka-San/current/log/pm2-www-output.log",
+		"exec_mode": "fork_mode"
+	}
+]
