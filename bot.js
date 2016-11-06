@@ -1,26 +1,22 @@
-'use strict'
+'use strict';
 
-var TelegramBot = require('node-telegram-bot-api');
-var Twit = require('twit');
+const config = require('./config');
 
-var token = '...'; //your telegram bot api token
-var bot = new TelegramBot(token, {polling: true});
+const TelegramBot = require('node-telegram-bot-api');
+const Twit = require('twit');
 
-var Tweety = new Twit({
-  consumer_key:         '...', //your twitter consumer key
-  consumer_secret:      '...', //your twitter consumer secret
-  access_token:         '...', //your twitter access token
-  access_token_secret:  '...' //your twitter access token secret
-})
+const telegram_bot = new TelegramBot(config.telegram.token, {polling: true});
 
-var stream = Tweety.stream('statuses/filter', { follow: ['294025417'] });
+const Tweety = new Twit(config.twitter.credential);
+
+const stream = Tweety.stream('statuses/filter', {follow: config.twitter.following});
 
 stream.on('tweet', function (tweet) {
-    if (!tweet.retweeted_status && !tweet.quoted_status && !tweet.in_reply_to_user_id) {
-      bot.sendMessage('...', tweet.text); // chat id
-    }
-})
+	if (!tweet.retweeted_status && !tweet.quoted_status && !tweet.in_reply_to_user_id) {
+		telegram_bot.sendMessage(config.telegram.chat_id, tweet.text); // chat id
+	}
+});
 
-stream.on('error', function (error){
-    console.log(error.message);
-})
+stream.on('error', function (error) {
+	console.log(error.message);
+});
